@@ -1,13 +1,14 @@
 var socket = new WebSocket("ws://localhost:8080/ws");
 
-let connect = () => {
+let connect = cb => {
   console.log("Attempting connection...");
   socket.onopen = () => {
     console.log("Succesfully connected");
   }
 
-  socket.onmessage = event => {
-    console.log("Socket closed connection: ", event);
+  socket.onmessage = msg => {
+    console.log("Socket closed connection: ", msg);
+    cb(msg);
   }
 
   socket.onerror = error => {
